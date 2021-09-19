@@ -1,0 +1,16 @@
+.App {
+  text-align: center;
+}
+
+
+.hidden {
+  opacity: 0;
+}
+
+.module--spacing--small {
+  height: 20px;
+}
+
+.module--spacing--large {
+  height: 40px;
+}
