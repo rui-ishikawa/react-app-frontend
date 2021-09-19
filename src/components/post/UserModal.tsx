@@ -174,7 +174,7 @@ const UserModal: React.FC = () => {
       {
         users?.map((user: User, index: number) => {
           return (
-            user.id === user.id ? (　　//ここは投稿者のIDと同じユーザーにしたい
+            user.id === user.id ? (　　//ここは投稿者のIDと同じユーザーにしたい　
               <div key={index} onClick={() => {
                 setUser(user)
                 setUserDetailOpen(true)
