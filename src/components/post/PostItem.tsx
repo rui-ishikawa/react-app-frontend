@@ -16,6 +16,7 @@ import DeleteIcon from "@material-ui/icons/Delete"
 import UserModal from "./UserModal"
 import { Post } from "../../interfaces/index"
 import { deletePost } from "../../lib/api/posts"
+import PostComment from "./PostComment"
 // import userEvent from "@testing-library/user-event"
 
 const useStyles = makeStyles(() => ({
@@ -79,6 +80,7 @@ const PostItem = ({ post, handleGetPosts }: PostItemProps) => {
             }
           </Typography>
         </CardContent>
+
         <CardActions disableSpacing>
           <IconButton onClick={() => like ? setLike(false) : setLike(true)}>
             {like ? <FavoriteIcon /> : <FavoriteBorderIcon />}
@@ -92,6 +94,8 @@ const PostItem = ({ post, handleGetPosts }: PostItemProps) => {
             </IconButton>
           </div>
         </CardActions>
+        <PostComment
+          handleGetPosts={handleGetPosts} />
       </Card>
     </>
   )

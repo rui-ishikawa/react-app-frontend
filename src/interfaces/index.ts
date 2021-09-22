@@ -107,3 +107,15 @@ export interface Post {
 export interface PostApiJson {
   posts: Post[]
 }
+
+// コメント機能
+export interface PostFormData extends FormData {
+  append(name: keyof CommentData, value: String | Blob, fileName?: string): any
+}
+
+export interface CommentData {
+  postId: number
+  userId: number | undefined
+  content: string
+  createdAt?: Date
+}
