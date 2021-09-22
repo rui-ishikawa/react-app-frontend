@@ -1,6 +1,7 @@
-import React, { useState } from "react"
+import React, { useContext, useState } from "react"
+import { AuthContext } from "App"
 
-import { makeStyles } from "@material-ui/core/styles"
+import { makeStyles, Theme } from "@material-ui/core/styles"
 import Card from "@material-ui/core/Card"
 import CardHeader from "@material-ui/core/CardHeader"
 import CardMedia from "@material-ui/core/CardMedia"
@@ -19,7 +20,7 @@ import { deletePost } from "../../lib/api/posts"
 import PostComment from "./PostComment"
 // import userEvent from "@testing-library/user-event"
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme: Theme) => ({
   card: {
     width: 480,
     marginTop: "2rem",
@@ -32,6 +33,10 @@ const useStyles = makeStyles(() => ({
   },
   delete: {
     marginLeft: "auto"
+  },
+  avatar: {
+    width: theme.spacing(7),
+    height: theme.spacing(7)
   }
 }))
 
@@ -42,6 +47,7 @@ interface PostItemProps {
 
 
 const PostItem = ({ post, handleGetPosts }: PostItemProps) => {
+  const { currentUser } = useContext(AuthContext)
   const classes = useStyles()
   const [like, setLike] = useState<boolean>(false)
 
@@ -57,9 +63,11 @@ const PostItem = ({ post, handleGetPosts }: PostItemProps) => {
       <Card className={classes.card}>
         <CardHeader
           avatar={
-            <Avatar>
-              U
-            </Avatar>
+            <Avatar
+              alt="avatar"
+              src={currentUser?.image.url}
+              className={classes.avatar}
+            />
           }
           title={post.name}
         />
