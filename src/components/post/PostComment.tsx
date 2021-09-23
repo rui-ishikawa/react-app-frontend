@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     width: "100%"
   },
   textInputWrapper: {
-    width: "100%"
+    width: "80%"
   },
   button: {
     marginLeft: theme.spacing(1)
