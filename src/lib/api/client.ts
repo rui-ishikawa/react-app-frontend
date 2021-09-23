@@ -1,6 +1,7 @@
 import applyCaseMiddleware from "axios-case-converter"
 import axios from "axios"
 import Cookies from "js-cookie"
+// import { apiURL } from '../../../config'
 
 // applyCaseMiddleware:
 // axiosで受け取ったレスポンスの値をスネークケース→キャメルケースに変換
