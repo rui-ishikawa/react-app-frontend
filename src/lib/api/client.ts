@@ -14,6 +14,7 @@ const options = {
 
 const client = applyCaseMiddleware(axios.create({
   baseURL: apiURL,
+  // baseURL: "http://localhost:3001/api/v1",
   headers: {
     "Content-Type": "multipart/form-data", // 画像ファイルを取り扱うのでform-dataで送信
     "access-token": Cookies.get("_access_token"),
