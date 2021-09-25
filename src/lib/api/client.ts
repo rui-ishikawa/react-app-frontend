@@ -1,7 +1,7 @@
 import applyCaseMiddleware from "axios-case-converter"
 import axios from "axios"
 import Cookies from "js-cookie"
-// import { apiURL } from '../../../config'
+import { apiURL } from '../../config'
 
 // applyCaseMiddleware:
 // axiosで受け取ったレスポンスの値をスネークケース→キャメルケースに変換
@@ -13,7 +13,7 @@ const options = {
 }
 
 const client = applyCaseMiddleware(axios.create({
-  baseURL: "http://localhost:3001/api/v1",
+  baseURL: apiURL,
   headers: {
     "Content-Type": "multipart/form-data", // 画像ファイルを取り扱うのでform-dataで送信
     "access-token": Cookies.get("_access_token"),
