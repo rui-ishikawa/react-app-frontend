@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { RouteComponentProps } from "react-router-dom"
 
 import { styled } from '@material-ui/core/styles';
 import { makeStyles, Theme } from "@material-ui/core/styles"
@@ -6,7 +7,8 @@ import TextField from "@material-ui/core/TextField"
 import Button from "@material-ui/core/Button"
 import SendIcon from "@material-ui/icons/Send"
 
-import { createPost } from "../../lib/api/posts"
+import { createComment } from "../../lib/api/comments"
+import { CommentFormData } from "interfaces/index"
 
 const useStyles = makeStyles((theme: Theme) => ({
   form: {
@@ -44,34 +46,29 @@ const borderStyles = {
   border: 1,
 }
 
-interface PostFormProps {
-  handleGetPosts: Function
-}
+type CommentProps = { content?: string }
 
-const PostComment = ({ handleGetPosts }: PostFormProps) => {
+const PostComment: React.FC<CommentProps> = (props) => {
   const classes = useStyles()
 
   const [content, setContent] = useState<string>("")
 
-
-
-  // FormData形式でデータを作成
-  const createFormData = (): FormData => {
+  const createFormData = (): CommentFormData => {
     const formData = new FormData()
 
     formData.append("content", content)
     return formData
   }
 
-  const handleCreatePost = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
 
     const data = createFormData()
 
-    await createPost(data)
+    await createComment(data)
       .then(() => {
         setContent("")
-        handleGetPosts()
+        console.log(data)
       })
   }
 
@@ -102,7 +99,7 @@ const PostComment = ({ handleGetPosts }: PostFormProps) => {
           </Button>
         </div>
       </form> */}
-      <form className={classes.formWrapper} noValidate autoComplete="off" onSubmit={handleCreatePost}>
+      <form className={classes.formWrapper} noValidate autoComplete="off" >
         <TextField
           required
           multiline
@@ -114,7 +111,7 @@ const PostComment = ({ handleGetPosts }: PostFormProps) => {
           variant="contained"
           color="primary"
           disabled={!content ? true : false}
-          // onClick={handleSubmit}
+          onClick={handleSubmit}
           className={classes.button}
         >
           <SendIcon />

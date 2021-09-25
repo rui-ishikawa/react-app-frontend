@@ -1,7 +1,7 @@
 import client from "lib/api/client"
-import { PostFormData } from "interfaces/index"
+import { CommentFormData } from "interfaces/index"
 
 // メッセージを作成
-export const createComment = (data: PostFormData) => {
-  return client.post("commnets", data)
+export const createComment = (data: CommentFormData) => {
+  return client.post("comments", data)
 }

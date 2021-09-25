@@ -102,8 +102,8 @@ const PostItem = ({ post, handleGetPosts }: PostItemProps) => {
             </IconButton>
           </div>
         </CardActions>
-        <PostComment
-          handleGetPosts={handleGetPosts} />
+        <PostComment />
+
       </Card>
     </>
   )
