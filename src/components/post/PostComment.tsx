@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 
 import { makeStyles, Theme } from "@material-ui/core/styles"
 import TextField from "@material-ui/core/TextField"
@@ -6,7 +6,7 @@ import Button from "@material-ui/core/Button"
 import SendIcon from "@material-ui/icons/Send"
 import { Grid, Typography } from "@material-ui/core"
 
-import { createComment } from "../../lib/api/comments"
+import { createComment, getComments } from "../../lib/api/comments"
 import { CommentFormData } from "interfaces/index"
 import { CommentData } from "interfaces/index"
 
@@ -49,15 +49,36 @@ const PostComment: React.FC<CommentProps> = (props) => {
 
   const [content, setContent] = useState<string>("")
   const [comments, setComments] = useState<CommentData[]>([])
+  const [loading, setLoading] = useState<boolean>(true)
 
   const createFormData = (): CommentFormData => {
     const formData = new FormData()
 
     formData.append("content", content)
-    // formData.append("createdAt", createdAt)
 
     return formData
   }
+
+  useEffect(() => {
+    async function handleGetComments() {
+      try {
+        const res = await getComments()
+        console.log(res)
+
+        if (res?.status === 200) {
+          // setOtherUser(res?.data.otherUser)
+          setComments(res?.data.comments)
+        } else {
+          console.log("No comments")
+        }
+      } catch (err) {
+        console.log(err)
+      }
+
+      setLoading(false)
+    }
+    handleGetComments()
+  }, [])
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()

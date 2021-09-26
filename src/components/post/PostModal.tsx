@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function PostModal() {
   const classes = useStyles();
-  // getModalStyle is not a pure function, we roll the style only on the first render
+
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
   const [posts, setPosts] = useState<Post[]>([])
