@@ -184,7 +184,7 @@ const UserModal: React.FC = () => {
                   variant="text"
                   className={classes.button}
                 >
-                  ユーザーの情報を見る
+                  ユーザーについて
                 </Button>
               </div>
             ) : (
