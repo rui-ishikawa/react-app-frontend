@@ -165,31 +165,23 @@ const UserModal: React.FC = () => {
     setUserDetailOpen(false);
   };
 
-
-
-
-
   return (
     <>
       {
         users?.map((user: User, index: number) => {
           return (
-            user.id === user.id ? (　　//ここは投稿者のIDと同じユーザーにしたい　
-              <div key={index} onClick={() => {
-                setUser(user)
-                setUserDetailOpen(true)
-              }}>
-                <Button
-                  onClick={handleOpen}
-                  variant="text"
-                  className={classes.button}
-                >
-                  ユーザーについて
-                </Button>
-              </div>
-            ) : (
-              <></>
-            )
+            <div key={index} onClick={() => {
+              setUser(user)
+              setUserDetailOpen(true)
+            }}>
+              <Button
+                onClick={handleOpen}
+                variant="text"
+                className={classes.button}
+              >
+                ユーザーについて
+              </Button>
+            </div>
           )
         })
       }

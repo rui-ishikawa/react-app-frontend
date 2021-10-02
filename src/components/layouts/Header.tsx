@@ -82,18 +82,6 @@ const Header: React.FC = () => {
                 <ChatBubbleIcon />
                 チャット
               </IconButton>
-
-              <IconButton
-                component={Link}
-                to="/home"
-                edge="start"
-                className={classes.linkBtn}
-                color="primary"
-                size="medium"
-              >
-                <PersonIcon />
-                ホーム
-              </IconButton>
             </div>
           </>
         )
@@ -132,6 +120,18 @@ const Header: React.FC = () => {
           >
             TeamTeaching
           </Typography>
+          <div className={classes.buttons}>
+            <IconButton
+              component={Link}
+              to="/home"
+              edge="start"
+              className={classes.linkBtn}
+              size="medium"
+            >
+              <PersonIcon />
+              ホーム
+            </IconButton>
+          </div>
         </Toolbar>
         <AuthButtons />
       </AppBar>
