@@ -65,7 +65,7 @@ const PostItem = ({ post, handleGetPosts }: PostItemProps) => {
           avatar={
             <Avatar
               alt="avatar"
-              src={post.image?.url}
+              src={currentUser?.image.url} //userに紐付けたい
               className={classes.avatar}
             />
           }

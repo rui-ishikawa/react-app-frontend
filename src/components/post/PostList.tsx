@@ -9,7 +9,7 @@ import OutlinedCard from "./PostCard"
 import PostModal from "./PostModal";
 
 import { getPosts } from "../../lib/api/posts"
-import { Post, User } from "../../interfaces/index"
+import { Post } from "../../interfaces/index"
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -20,7 +20,6 @@ const useStyles = makeStyles(() => ({
 const PostList: React.FC = () => {
   const classes = useStyles()
   const [posts, setPosts] = useState<Post[]>([])
-
 
   const handleGetPosts = async () => {
     const { data } = await getPosts()
@@ -48,7 +47,6 @@ const PostList: React.FC = () => {
                 <PostItem
                   key={post.id}
                   post={post}
-                  // users={users}
                   handleGetPosts={handleGetPosts}
                 />
               )
