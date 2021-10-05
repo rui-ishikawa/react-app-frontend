@@ -15,7 +15,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite"
 import DeleteIcon from "@material-ui/icons/Delete"
 
 import UserModal from "./UserModal"
-import { Post, User } from "../../interfaces/index"
+import { Post } from "../../interfaces/index"
 import { deletePost } from "../../lib/api/posts"
 import PostComment from "./PostComment"
 // import userEvent from "@testing-library/user-event"
@@ -93,16 +93,18 @@ const PostItem = ({ post, handleGetPosts }: PostItemProps) => {
           <IconButton onClick={() => like ? setLike(false) : setLike(true)}>
             {like ? <FavoriteIcon /> : <FavoriteBorderIcon />}
           </IconButton>
-          <UserModal />
-          <div className={classes.delete}>
-            <IconButton
-              onClick={() => handleDeletePost(post.id)}
-            >
-              <DeleteIcon />
-            </IconButton>
-          </div>
+          <UserModal
+
+          />
         </CardActions>
         <PostComment />
+        <div className={classes.delete}>
+          <IconButton
+            onClick={() => handleDeletePost(post.id)}
+          >
+            <DeleteIcon />
+          </IconButton>
+        </div>
 
       </Card>
     </>
