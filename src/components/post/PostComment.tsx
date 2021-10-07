@@ -42,12 +42,13 @@ const borderStyles = {
   border: 1,
 }
 
-type CommentProps = { content?: string }
+type CommentProps = { content?: string, key: string }
 
 const PostComment: React.FC<CommentProps> = (props) => {
   const classes = useStyles()
 
   const [content, setContent] = useState<string>("")
+  const [key, setKey] = useState<string>("")
   const [comments, setComments] = useState<CommentData[]>([])
   const [loading, setLoading] = useState<boolean>(true)
 
@@ -55,6 +56,7 @@ const PostComment: React.FC<CommentProps> = (props) => {
     const formData = new FormData()
 
     formData.append("content", content)
+    formData.append("post_id", key)
 
     return formData
   }
@@ -90,6 +92,7 @@ const PostComment: React.FC<CommentProps> = (props) => {
       if (res.status === 200) {
         setComments([...comments, res.data.comment])
         setContent("")
+        setKey("")
         console.log(res)
       }
     } catch (err) {

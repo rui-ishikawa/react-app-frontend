@@ -58,6 +58,12 @@ const PostItem = ({ post, handleGetPosts }: PostItemProps) => {
       })
   }
 
+  // const handleGetUserPost = async () => {
+  //   const { data } = await getPosts()
+
+  //   setPosts(data.posts)
+  // }
+
   return (
     <>
       <Card className={classes.card}>
@@ -94,10 +100,12 @@ const PostItem = ({ post, handleGetPosts }: PostItemProps) => {
             {like ? <FavoriteIcon /> : <FavoriteBorderIcon />}
           </IconButton>
           <UserModal
-
+          // ここにpropsを渡して、ポストに紐づいたuserを表示させる
           />
         </CardActions>
-        <PostComment />
+        <PostComment
+          key={post.id}
+        />
         <div className={classes.delete}>
           <IconButton
             onClick={() => handleDeletePost(post.id)}
