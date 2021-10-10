@@ -54,30 +54,30 @@ type UserModalProps = {
   user: User
 }
 
-const UserModal: React.FC<UserModalProps> = (handlePostCreateUser) => {
+const UserModal: React.FC<UserModalProps> = (handlePostCreateUser, user) => {
   const classes = useStyles();
   const { currentUser } = useContext(AuthContext)
 
-  const initialUserState: User = {
-    id: 0,
-    uid: "",
-    provider: "",
-    email: "",
-    name: "",
-    image: {
-      url: ""
-    },
-    profile: "",
-    allowPasswordChange: true
-  }
+  // const initialUserState: User = {
+  //   id: 0,
+  //   uid: "",
+  //   provider: "",
+  //   email: "",
+  //   name: "",
+  //   image: {
+  //     url: ""
+  //   },
+  //   profile: "",
+  //   allowPasswordChange: true
+  // }
 
-  const [loading, setLoading] = useState<boolean>(true)
-  const [users, setUsers] = useState<User[]>([])
-  const [user, setUser] = useState<User>(initialUserState)
+  // const [loading, setLoading] = useState<boolean>(true)
+  // const [users, setUsers] = useState<User[]>([])
+  // const [user, setUser] = useState<User>(initialUserState)
   const [userDetailOpen, setUserDetailOpen] = useState<boolean>(false)
   const [likedUsers, setLikedUsers] = useState<User[]>([])
   const [likes, setLikes] = useState<LikeData[]>([])
-  const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
+  // const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
 
   // フォームデータを作成
   const createFormData = (): LikeFormData => {
@@ -108,7 +108,7 @@ const UserModal: React.FC<UserModalProps> = (handlePostCreateUser) => {
       }
 
       if (res?.data.isMatched === true) {
-        setAlertMessageOpen(true)
+        // setAlertMessageOpen(true)
         setUserDetailOpen(false)
       }
     } catch (err) {
@@ -117,22 +117,22 @@ const UserModal: React.FC<UserModalProps> = (handlePostCreateUser) => {
   }
 
   // ユーザー一覧を取得
-  const handleGetUsers = async () => {
-    try {
-      const res = await getUsers()
-      console.log(res)
+  // const handleGetUsers = async () => {
+  //   try {
+  //     const res = await getUsers()
+  //     console.log(res)
 
-      if (res?.status === 200) {
-        setUsers(res?.data.users)
-      } else {
-        console.log("No users")
-      }
-    } catch (err) {
-      console.log(err)
-    }
+  //     if (res?.status === 200) {
+  //       setUsers(res?.data.users)
+  //     } else {
+  //       console.log("No users")
+  //     }
+  //   } catch (err) {
+  //     console.log(err)
+  //   }
 
-    setLoading(false)
-  }
+  //   setLoading(false)
+  // }
 
   // いいね一覧を取得
   const handleGetLikes = async () => {
@@ -151,7 +151,7 @@ const UserModal: React.FC<UserModalProps> = (handlePostCreateUser) => {
   }
 
   useEffect(() => {
-    handleGetUsers()
+    // handleGetUsers()
     handleGetLikes()
   }, [])
 
@@ -161,10 +161,10 @@ const UserModal: React.FC<UserModalProps> = (handlePostCreateUser) => {
   }
 
 
-  const handleOpen = () => {
-    setUser(user)
-    setUserDetailOpen(true);
-  };
+  // const handleOpen = () => {
+  //   setUser(user)
+  //   setUserDetailOpen(true);
+  // };
 
   const handleClose = () => {
     setUserDetailOpen(false);
@@ -173,13 +173,13 @@ const UserModal: React.FC<UserModalProps> = (handlePostCreateUser) => {
   return (
     <>
       <div
-      // onClick={() => {
-      //   setUser(user)
-      //   setUserDetailOpen(true)
-      // }}
+        onClick={() => {
+          // setUsers(user)
+          setUserDetailOpen(true)
+        }}
       >
         <Button
-          onClick={handleOpen}
+          // onClick={handleOpen}
           variant="text"
           className={classes.button}
         >
@@ -197,7 +197,7 @@ const UserModal: React.FC<UserModalProps> = (handlePostCreateUser) => {
               <Grid item>
                 <Avatar
                   alt="avatar"
-                  src={user?.image.url}
+                  src={user.image?.url}
                   className={classes.avatar}
                 />
               </Grid>
@@ -236,13 +236,8 @@ const UserModal: React.FC<UserModalProps> = (handlePostCreateUser) => {
           </DialogContent>
         </Dialog>
       </div>
-
-
-
     </>
   )
-
-
 }
 
 export default UserModal
