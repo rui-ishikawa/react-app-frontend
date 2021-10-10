@@ -85,7 +85,6 @@ const PostItem = ({ post, handleGetPosts }: PostItemProps) => {
 
   return (
     <>
-
       <Card className={classes.card}>
         <CardHeader
           avatar={
@@ -95,7 +94,7 @@ const PostItem = ({ post, handleGetPosts }: PostItemProps) => {
               className={classes.avatar}
             />
           }
-          title={post?.name}
+          title={post?.user.name}
         />
         {post.image?.url ?
           <CardMedia

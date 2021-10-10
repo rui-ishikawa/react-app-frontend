@@ -58,7 +58,7 @@ export default function PostModal() {
 
   useEffect(() => {
     handleGetPosts()
-  }, [])
+  }, [setPosts])
 
 
   const body = (
