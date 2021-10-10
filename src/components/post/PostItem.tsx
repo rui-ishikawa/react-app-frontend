@@ -79,70 +79,66 @@ const PostItem = ({ post, handleGetPosts }: PostItemProps) => {
     }
   }
 
-  // useEffect(() => {
-  //   handleGetPosts()
-  // }, [])
+  useEffect(() => {
+    handleGetPosts()
+  }, [])
 
   return (
     <>
-      {
-        posts?.map((post: Post) => {
-          return (
-            <Card className={classes.card}>
-              <CardHeader
-                avatar={
-                  <Avatar
-                    alt="avatar"
-                    src={currentUser?.image.url} //userに紐付けたい
-                    className={classes.avatar}
-                  />
-                }
-                title={post?.name}
-              />
-              {post.image?.url ?
-                <CardMedia
-                  component="img"
-                  src={post.image.url}
-                  alt="post image"
-                /> : null
-              }
-              <CardContent>
-                <Typography variant="body2" color="textSecondary" component="span">
-                  {post.content?.split("\n").map((content: string, index: number) => {
-                    return (
-                      <p key={index}>{content}</p>
-                    )
-                  })
-                  }
-                </Typography>
-              </CardContent>
 
-              <CardActions disableSpacing>
-                <IconButton onClick={() => like ? setLike(false) : setLike(true)}>
-                  {like ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-                </IconButton>
-                <UserModal
-                  // ここにpropsを渡して、ポストに紐づいたuserを表示させる
-                  handlePostCreateUser={handlePostCreateUser}
-                  user={post.user}
-                />
+      <Card className={classes.card}>
+        <CardHeader
+          avatar={
+            <Avatar
+              alt="avatar"
+              src={currentUser?.image.url} //userに紐付けたい
+              className={classes.avatar}
+            />
+          }
+          title={post?.name}
+        />
+        {post.image?.url ?
+          <CardMedia
+            component="img"
+            src={post.image.url}
+            alt="post image"
+          /> : null
+        }
+        <CardContent>
+          <Typography variant="body2" color="textSecondary" component="span">
+            {post.content?.split("\n").map((content: string, index: number) => {
+              return (
+                <p key={index}>{content}</p>
+              )
+            })
+            }
+          </Typography>
+        </CardContent>
 
-              </CardActions>
-              <PostComment
-                key={post.id}
-              />
-              <div className={classes.delete}>
-                <IconButton
-                  onClick={() => handleDeletePost(post.id)}
-                >
-                  <DeleteIcon />
-                </IconButton>
-              </div>
+        <CardActions disableSpacing>
+          <IconButton onClick={() => like ? setLike(false) : setLike(true)}>
+            {like ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+          </IconButton>
+          <UserModal
+            // ここにpropsを渡して、ポストに紐づいたuserを表示させる
+            handlePostCreateUser={handlePostCreateUser}
+            user={post.user}
+          />
 
-            </Card>
-          )
-        })
-      }
+        </CardActions>
+        <PostComment
+          key={post.id}
+        />
+        <div className={classes.delete}>
+          <IconButton
+            onClick={() => handleDeletePost(post.id)}
+          >
+            <DeleteIcon />
+          </IconButton>
+        </div>
+
+      </Card>
+
     </>
   )
 }
