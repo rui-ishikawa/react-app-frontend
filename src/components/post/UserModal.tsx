@@ -49,7 +49,12 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const UserModal: React.FC = () => {
+type UserModalProps = {
+  handlePostCreateUser: () => Promise<void>;
+  user: User
+}
+
+const UserModal: React.FC<UserModalProps> = (handlePostCreateUser) => {
   const classes = useStyles();
   const { currentUser } = useContext(AuthContext)
 
@@ -167,25 +172,20 @@ const UserModal: React.FC = () => {
 
   return (
     <>
-      {
-        users?.map((user: User, index: number) => {
-          return (
-            <div key={index} onClick={() => {
-              setUser(user)
-              setUserDetailOpen(true)
-            }}>
-              <Button
-                onClick={handleOpen}
-                variant="text"
-                className={classes.button}
-              >
-                ユーザーについて
-              </Button>
-            </div>
-          )
-        })
-      }
-
+      <div
+      // onClick={() => {
+      //   setUser(user)
+      //   setUserDetailOpen(true)
+      // }}
+      >
+        <Button
+          onClick={handleOpen}
+          variant="text"
+          className={classes.button}
+        >
+          ユーザーについて
+        </Button>
+      </div>
       <div>
         <Dialog
           open={userDetailOpen}

@@ -16,7 +16,7 @@ import DeleteIcon from "@material-ui/icons/Delete"
 
 import UserModal from "./UserModal"
 import { Post } from "../../interfaces/index"
-import { deletePost } from "../../lib/api/posts"
+import { deletePost, getPosts } from "../../lib/api/posts"
 import PostComment from "./PostComment"
 // import userEvent from "@testing-library/user-event"
 
@@ -50,6 +50,7 @@ const PostItem = ({ post, handleGetPosts }: PostItemProps) => {
   const { currentUser } = useContext(AuthContext)
   const classes = useStyles()
   const [like, setLike] = useState<boolean>(false)
+  const [posts, setPosts] = useState<Post[]>([])
 
   const handleDeletePost = async (id: string) => {
     await deletePost(id)
@@ -63,6 +64,20 @@ const PostItem = ({ post, handleGetPosts }: PostItemProps) => {
 
   //   setPosts(data.posts)
   // }
+  const handlePostCreateUser = async () => {
+    try {
+      const res = await getPosts()
+      console.log(res)
+
+      if (res?.status === 200) {
+        setPosts(res?.data.posts)
+      } else {
+        console.log("No users")
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   return (
     <>
@@ -75,7 +90,7 @@ const PostItem = ({ post, handleGetPosts }: PostItemProps) => {
               className={classes.avatar}
             />
           }
-          title={post.name}
+          title={post?.name}
         />
         {post.image?.url ?
           <CardMedia
@@ -100,8 +115,11 @@ const PostItem = ({ post, handleGetPosts }: PostItemProps) => {
             {like ? <FavoriteIcon /> : <FavoriteBorderIcon />}
           </IconButton>
           <UserModal
-          // ここにpropsを渡して、ポストに紐づいたuserを表示させる
+            // ここにpropsを渡して、ポストに紐づいたuserを表示させる
+            handlePostCreateUser={handlePostCreateUser}
+            user={post.user}
           />
+
         </CardActions>
         <PostComment
           key={post.id}

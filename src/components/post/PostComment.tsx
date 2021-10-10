@@ -120,6 +120,7 @@ const PostComment: React.FC<CommentProps> = (props) => {
           return (
             <Grid key={index} container justifyContent="flex-start" >
               <Grid item>
+
                 <Typography variant="body1" component="p">
                   {comment?.content}
                 </Typography>
