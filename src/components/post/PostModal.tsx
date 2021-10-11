@@ -56,9 +56,9 @@ export default function PostModal() {
     setPosts(data.posts)
   }
 
-  useEffect(() => {
-    handleGetPosts()
-  }, [setPosts])
+  // useEffect(() => {
+  //   handleGetPosts()
+  // }, [setPosts])
 
 
   const body = (

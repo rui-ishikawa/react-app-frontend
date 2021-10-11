@@ -1,5 +1,4 @@
-import React, { useContext, useState, useEffect } from "react"
-import { AuthContext } from "App"
+import { useState } from "react"
 
 import { makeStyles, Theme } from "@material-ui/core/styles"
 import Card from "@material-ui/core/Card"
@@ -16,9 +15,8 @@ import DeleteIcon from "@material-ui/icons/Delete"
 
 import UserModal from "./UserModal"
 import { Post } from "../../interfaces/index"
-import { deletePost, getPosts } from "../../lib/api/posts"
+import { deletePost } from "../../lib/api/posts"
 import PostComment from "./PostComment"
-// import userEvent from "@testing-library/user-event"
 
 const useStyles = makeStyles((theme: Theme) => ({
   card: {
@@ -47,10 +45,8 @@ interface PostItemProps {
 
 
 const PostItem = ({ post, handleGetPosts }: PostItemProps) => {
-  const { currentUser } = useContext(AuthContext)
   const classes = useStyles()
   const [like, setLike] = useState<boolean>(false)
-  const [posts, setPosts] = useState<Post[]>([])
 
   const handleDeletePost = async (id: string) => {
     await deletePost(id)
@@ -58,30 +54,6 @@ const PostItem = ({ post, handleGetPosts }: PostItemProps) => {
         handleGetPosts()
       })
   }
-
-  // const handleGetUserPost = async () => {
-  //   const { data } = await getPosts()
-
-  //   setPosts(data.posts)
-  // }
-  const handlePostCreateUser = async () => {
-    try {
-      const res = await getPosts()
-      console.log(res)
-
-      if (res?.status === 200) {
-        setPosts(res?.data.posts)
-      } else {
-        console.log("No users")
-      }
-    } catch (err) {
-      console.log(err)
-    }
-  }
-
-  useEffect(() => {
-    handleGetPosts()
-  }, [])
 
   return (
     <>
@@ -119,8 +91,6 @@ const PostItem = ({ post, handleGetPosts }: PostItemProps) => {
             {like ? <FavoriteIcon /> : <FavoriteBorderIcon />}
           </IconButton>
           <UserModal
-            // ここにpropsを渡して、ポストに紐づいたuserを表示させる
-            handlePostCreateUser={handlePostCreateUser}
             user={post.user}
           />
 

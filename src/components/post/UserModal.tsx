@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect, useContext } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 
 import { Grid, Typography } from "@material-ui/core"
@@ -11,9 +11,7 @@ import Divider from "@material-ui/core/Divider"
 import FavoriteIcon from "@material-ui/icons/Favorite"
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder"
 import { LikeFormData } from "interfaces/index"
-import AlertMessage from "components/utils/AlertMessage"
 
-import { getUsers } from "lib/api/users"
 import { getLikes, createLike } from "lib/api/likes"
 import { User, LikeData } from "interfaces/index"
 import { AuthContext } from "App"
@@ -50,33 +48,16 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 type UserModalProps = {
-  handlePostCreateUser: () => Promise<void>;
   user: User
 }
 
-const UserModal: React.FC<UserModalProps> = function ({ handlePostCreateUser, user }) {
+const UserModal: React.FC<UserModalProps> = function ({ user }) {
   const classes = useStyles();
   const { currentUser } = useContext(AuthContext);
-
-  // const initialUserState: User = {
-  //   id: 0,
-  //   uid: "",
-  //   provider: "",
-  //   email: "",
-  //   name: "",
-  //   image: {
-  //     url: ""
-  //   },
-  //   profile: "",
-  //   allowPasswordChange: true
-  // }
-  // const [loading, setLoading] = useState<boolean>(true)
-  // const [users, setUsers] = useState<User[]>([])
-  // const [user, setUser] = useState<User>(initialUserState)
   const [userDetailOpen, setUserDetailOpen] = useState<boolean>(false);
   const [likedUsers, setLikedUsers] = useState<User[]>([]);
   const [likes, setLikes] = useState<LikeData[]>([]);
-  // const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
+
   // フォームデータを作成
   const createFormData = (): LikeFormData => {
     const formData = new FormData();
@@ -114,21 +95,6 @@ const UserModal: React.FC<UserModalProps> = function ({ handlePostCreateUser, us
     }
   };
 
-  // ユーザー一覧を取得
-  // const handleGetUsers = async () => {
-  //   try {
-  //     const res = await getUsers()
-  //     console.log(res)
-  //     if (res?.status === 200) {
-  //       setUsers(res?.data.users)
-  //     } else {
-  //       console.log("No users")
-  //     }
-  //   } catch (err) {
-  //     console.log(err)
-  //   }
-  //   setLoading(false)
-  // }
   // いいね一覧を取得
   const handleGetLikes = async () => {
     try {
@@ -155,11 +121,6 @@ const UserModal: React.FC<UserModalProps> = function ({ handlePostCreateUser, us
     return likedUsers?.some((likedUser: User) => likedUser.id === userId);
   };
 
-
-  // const handleOpen = () => {
-  //   setUser(user)
-  //   setUserDetailOpen(true);
-  // };
   const handleClose = () => {
     setUserDetailOpen(false);
   };
@@ -168,12 +129,10 @@ const UserModal: React.FC<UserModalProps> = function ({ handlePostCreateUser, us
     <>
       <div
         onClick={() => {
-          // setUsers(user)
           setUserDetailOpen(true);
         }}
       >
         <Button
-          // onClick={handleOpen}
           variant="text"
           className={classes.button}
         >
