@@ -54,9 +54,9 @@ type UserModalProps = {
   user: User
 }
 
-const UserModal: React.FC<UserModalProps> = (handlePostCreateUser, user) => {
+const UserModal: React.FC<UserModalProps> = function ({ handlePostCreateUser, user }) {
   const classes = useStyles();
-  const { currentUser } = useContext(AuthContext)
+  const { currentUser } = useContext(AuthContext);
 
   // const initialUserState: User = {
   //   id: 0,
@@ -70,58 +70,55 @@ const UserModal: React.FC<UserModalProps> = (handlePostCreateUser, user) => {
   //   profile: "",
   //   allowPasswordChange: true
   // }
-
   // const [loading, setLoading] = useState<boolean>(true)
   // const [users, setUsers] = useState<User[]>([])
   // const [user, setUser] = useState<User>(initialUserState)
-  const [userDetailOpen, setUserDetailOpen] = useState<boolean>(false)
-  const [likedUsers, setLikedUsers] = useState<User[]>([])
-  const [likes, setLikes] = useState<LikeData[]>([])
+  const [userDetailOpen, setUserDetailOpen] = useState<boolean>(false);
+  const [likedUsers, setLikedUsers] = useState<User[]>([]);
+  const [likes, setLikes] = useState<LikeData[]>([]);
   // const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
-
   // フォームデータを作成
   const createFormData = (): LikeFormData => {
-    const formData = new FormData()
+    const formData = new FormData();
 
-    formData.append("fromUserId", String(currentUser?.id))
-    formData.append("toUserId", String(user.id))
+    formData.append("fromUserId", String(currentUser?.id));
+    formData.append("toUserId", String(user.id));
 
-    return formData
-  }
+    return formData;
+  };
 
   // いいね作成
   const handleCreateLike = async (user: User) => {
 
-    const data = createFormData()
+    const data = createFormData();
 
     try {
-      const res = await createLike(data)
-      console.log(res)
+      const res = await createLike(data);
+      console.log(res);
 
       if (res?.status === 200) {
-        setLikes([res.data.like, ...likes])
-        setLikedUsers([user, ...likedUsers])
+        setLikes([res.data.like, ...likes]);
+        setLikedUsers([user, ...likedUsers]);
 
-        console.log(res?.data.like)
+        console.log(res?.data.like);
       } else {
-        console.log("Failed")
+        console.log("Failed");
       }
 
       if (res?.data.isMatched === true) {
         // setAlertMessageOpen(true)
-        setUserDetailOpen(false)
+        setUserDetailOpen(false);
       }
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
+  };
 
   // ユーザー一覧を取得
   // const handleGetUsers = async () => {
   //   try {
   //     const res = await getUsers()
   //     console.log(res)
-
   //     if (res?.status === 200) {
   //       setUsers(res?.data.users)
   //     } else {
@@ -130,42 +127,39 @@ const UserModal: React.FC<UserModalProps> = (handlePostCreateUser, user) => {
   //   } catch (err) {
   //     console.log(err)
   //   }
-
   //   setLoading(false)
   // }
-
   // いいね一覧を取得
   const handleGetLikes = async () => {
     try {
-      const res = await getLikes()
-      console.log(res)
+      const res = await getLikes();
+      console.log(res);
 
       if (res?.status === 200) {
-        setLikedUsers(res?.data.activeLikes)
+        setLikedUsers(res?.data.activeLikes);
       } else {
-        console.log("No likes")
+        console.log("No likes");
       }
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
+  };
 
   useEffect(() => {
     // handleGetUsers()
-    handleGetLikes()
-  }, [])
+    handleGetLikes();
+  }, []);
 
   // すでにいいねを押されているユーザーかどうかの判定
   const isLikedUser = (userId: number | undefined): boolean => {
-    return likedUsers?.some((likedUser: User) => likedUser.id === userId)
-  }
+    return likedUsers?.some((likedUser: User) => likedUser.id === userId);
+  };
 
 
   // const handleOpen = () => {
   //   setUser(user)
   //   setUserDetailOpen(true);
   // };
-
   const handleClose = () => {
     setUserDetailOpen(false);
   };
@@ -175,7 +169,7 @@ const UserModal: React.FC<UserModalProps> = (handlePostCreateUser, user) => {
       <div
         onClick={() => {
           // setUsers(user)
-          setUserDetailOpen(true)
+          setUserDetailOpen(true);
         }}
       >
         <Button
@@ -198,8 +192,7 @@ const UserModal: React.FC<UserModalProps> = (handlePostCreateUser, user) => {
                 <Avatar
                   alt="avatar"
                   src={user.image?.url}
-                  className={classes.avatar}
-                />
+                  className={classes.avatar} />
               </Grid>
             </Grid>
             <Grid container justifyContent="center">
@@ -237,7 +230,7 @@ const UserModal: React.FC<UserModalProps> = (handlePostCreateUser, user) => {
         </Dialog>
       </div>
     </>
-  )
+  );
 }
 
 export default UserModal
