@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from "react"
-import { Link } from "react-router-dom"
 import { motion } from "framer-motion";
 
 import { makeStyles, Theme } from "@material-ui/core/styles"
@@ -256,15 +255,6 @@ const Users: React.FC = () => {
             >
               {isLikedUser(user.id) ? "いいね済み" : "いいね"}
             </Button>
-            <Grid container justifyContent="center">
-              <Button
-                component={Link}
-                to="/"
-                variant="outlined"
-                color="secondary"
-              > 学習をくわしく見る
-              </Button>
-            </Grid>
           </Grid>
         </DialogContent>
       </Dialog>

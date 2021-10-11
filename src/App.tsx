@@ -7,7 +7,6 @@ import Home from "components/pages/Home"
 import ChatRooms from "components/pages/ChatRooms"
 import ChatRoom from "components/pages/ChatRoom"
 import Users from "components/pages/Users"
-import UserPages from "components/pages/UserPages"
 import SignUp from "components/pages/SignUp"
 import Root from "components/pages/Root"
 import { About } from "components/pages/About"
@@ -86,7 +85,6 @@ const App: React.FC = () => {
                     <Switch>
                       <Route exact path="/home" component={Home} />
                       <Route exact path="/users" component={Users} />
-                      <Route exact path="/user_pages/:id" component={UserPages} />
                       <Route exact path="/chat_rooms" component={ChatRooms} />
                       <Route path="/chatroom/:id" component={ChatRoom} />
                       <Route exact path="/posts" component={PostList} />
