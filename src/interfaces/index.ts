@@ -118,6 +118,7 @@ export interface CommentFormData extends FormData {
 }
 
 export interface CommentData {
+  name: string;
   postId: number
   userId: number | undefined
   content: string

@@ -122,6 +122,9 @@ const PostComment: React.FC<CommentProps> = (props) => {
               <Grid item>
 
                 <Typography variant="body1" component="p">
+                  {comment?.name}
+                </Typography>
+                <Typography variant="body1" component="p">
                   {comment?.content}
                 </Typography>
                 <Typography
