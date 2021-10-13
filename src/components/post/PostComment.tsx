@@ -57,6 +57,7 @@ const PostComment: React.FC<CommentProps> = (props) => {
 
     formData.append("content", content)
     formData.append("post_id", key)
+    formData.append("user_id", key)
 
     return formData
   }

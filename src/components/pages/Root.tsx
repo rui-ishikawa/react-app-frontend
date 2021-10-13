@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(15),
   },
   content: {
-    color: "white"
+    color: "white",
   },
 }));
 
@@ -40,6 +40,7 @@ export default function Root() {
         <CssBaseline />
         <main>
           <div className={classes.heroContent}>
+
             <Container maxWidth="xl">
               <Typography className={classes.content} component="h1" variant="h3" align="center" gutterBottom>
                 「困り感」のある子どもを支えるママ、パパのためのサービスです
