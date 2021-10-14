@@ -57,8 +57,27 @@ const PostComment: React.FC<CommentProps> = (props) => {
 
     formData.append("content", content)
     formData.append("post_id", key)
+    formData.append("userId", String(""))
 
     return formData
+  }
+
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+
+    const data = createFormData()
+
+    try {
+      const res = await createComment(data)
+      if (res.status === 200) {
+        setComments([...comments, res.data.comment])
+        setContent("")
+        setKey("")
+        console.log(res)
+      }
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   useEffect(() => {
@@ -80,25 +99,8 @@ const PostComment: React.FC<CommentProps> = (props) => {
       setLoading(false)
     }
     handleGetComments()
-  }, [])
+  }, []) //handleSubmitを入れるとコメントしたユーザー名が表示されるが、無限ループする
 
-  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault()
-
-    const data = createFormData()
-
-    try {
-      const res = await createComment(data)
-      if (res.status === 200) {
-        setComments([...comments, res.data.comment])
-        setContent("")
-        setKey("")
-        console.log(res)
-      }
-    } catch (err) {
-      console.log(err)
-    }
-  }
 
   // Railsから渡ってくるtimestamp（ISO8601）をdatetimeに変換
   const iso8601ToDateTime = (iso8601: string) => {
@@ -111,7 +113,6 @@ const PostComment: React.FC<CommentProps> = (props) => {
 
     return year + "年" + month + "月" + day + "日" + hour + "時" + minute + "分"
   }
-
 
   return (
     <>
