@@ -4,9 +4,11 @@ import { makeStyles, Theme } from "@material-ui/core/styles"
 import TextField from "@material-ui/core/TextField"
 import Button from "@material-ui/core/Button"
 import SendIcon from "@material-ui/icons/Send"
+import DeleteIcon from "@material-ui/icons/Delete"
+import IconButton from "@material-ui/core/IconButton"
 import { Grid, Typography } from "@material-ui/core"
 
-import { createComment, getComments } from "../../lib/api/comments"
+import { createComment, deleteComment, getComments } from "../../lib/api/comments"
 import { CommentFormData } from "interfaces/index"
 import { CommentData } from "interfaces/index"
 
@@ -34,6 +36,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   button: {
     marginLeft: theme.spacing(1)
+  },
+  delete: {
+    marginLeft: "auto"
   }
 }))
 
@@ -48,17 +53,12 @@ const PostComment: React.FC<CommentProps> = (props) => {
   const classes = useStyles()
 
   const [content, setContent] = useState<string>("")
-  const [key, setKey] = useState<string>("")
   const [comments, setComments] = useState<CommentData[]>([])
   const [loading, setLoading] = useState<boolean>(true)
 
   const createFormData = (): CommentFormData => {
     const formData = new FormData()
-
     formData.append("content", content)
-    formData.append("post_id", key)
-    formData.append("userId", String(""))
-
     return formData
   }
 
@@ -81,7 +81,7 @@ const PostComment: React.FC<CommentProps> = (props) => {
       setLoading(false)
     }
     handleGetComments()
-  }, []) //commentsを入れるとコメントしたユーザー名が表示されるが、無限ループする
+  }, [])
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
@@ -94,12 +94,25 @@ const PostComment: React.FC<CommentProps> = (props) => {
 
         setComments([...comments, res.data.comment])
         setContent("")
-        setKey("")
+
         console.log(res)
       }
     } catch (err) {
       console.log(err)
     }
+  }
+
+  const handleGetCommnens = async () => {
+    const { data } = await getComments()
+
+    setComments(data.posts)
+  }
+
+  const handleDeleteComment = async (id: string) => {
+    await deleteComment(id)
+      .then(() => {
+        handleGetCommnens()
+      })
   }
 
   // Railsから渡ってくるtimestamp（ISO8601）をdatetimeに変換
@@ -121,7 +134,6 @@ const PostComment: React.FC<CommentProps> = (props) => {
           return (
             <Grid key={index} container justifyContent="flex-start" >
               <Grid item>
-
                 <Typography variant="body1" component="p">
                   {comment?.name}
                 </Typography>
@@ -135,6 +147,13 @@ const PostComment: React.FC<CommentProps> = (props) => {
                 >
                   {iso8601ToDateTime(comment.createdAt?.toString() || "100000000")}
                 </Typography>
+                {/* <div className={classes.delete}>
+                  <IconButton
+                    onClick={() => handleDeleteComment(comment.commentId)}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </div> */}
               </Grid>
             </Grid>
           )
