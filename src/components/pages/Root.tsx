@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(15),
   },
   content: {
-    color: "white"
+    color: "white",
   },
 }));
 
