@@ -95,9 +95,9 @@ const PostItem = ({ post, handleGetPosts }: PostItemProps) => {
           />
 
         </CardActions>
-        <PostComment
+        {/* <PostComment
           key={post.id}
-        />
+        /> */}
         <div className={classes.delete}>
           <IconButton
             onClick={() => handleDeletePost(post.id)}
