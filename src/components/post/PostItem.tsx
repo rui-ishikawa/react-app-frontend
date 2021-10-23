@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { RouteComponentProps } from 'react-router-dom'
 
 import { makeStyles, Theme } from "@material-ui/core/styles"
 import Card from "@material-ui/core/Card"
@@ -38,13 +39,18 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }))
 
-interface PostItemProps {
+// interface PostItemProps extends RouteComponentProps<{}> {
+//   // 型定義
+//   post: Post
+//   handleGetPosts: Function
+// }
+
+type ChatRoomProps = {
   post: Post
   handleGetPosts: Function
-}
+} & RouteComponentProps<{ id: string }>
 
-
-const PostItem = ({ post, handleGetPosts }: PostItemProps) => {
+const PostItem = ({ post, handleGetPosts, history, location, match }: ChatRoomProps) => {
   const classes = useStyles()
   const [like, setLike] = useState<boolean>(false)
 
@@ -96,7 +102,10 @@ const PostItem = ({ post, handleGetPosts }: PostItemProps) => {
 
         </CardActions>
         <PostComment
-          key={post.id}
+          history={history}
+          match={match}
+          location={location}
+        // key={post.id}
         />
         <div className={classes.delete}>
           <IconButton

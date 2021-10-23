@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import { RouteComponentProps } from "react-router-dom"
 
 import { makeStyles, Theme } from "@material-ui/core/styles"
 import TextField from "@material-ui/core/TextField"
@@ -42,13 +43,14 @@ const borderStyles = {
   border: 1,
 }
 
-type CommentProps = { content?: string, key: string }
+type CommentProps = { content?: string } & RouteComponentProps<{ id: string }>
 
 const PostComment: React.FC<CommentProps> = (props) => {
   const classes = useStyles()
+  const id = parseInt(props.match.params.id) // URLからidを取得
 
   const [content, setContent] = useState<string>("")
-  const [key, setKey] = useState<string>("")
+  // const [key, setKey] = useState<string>("")
   const [comments, setComments] = useState<CommentData[]>([])
   const [loading, setLoading] = useState<boolean>(true)
 
@@ -56,7 +58,7 @@ const PostComment: React.FC<CommentProps> = (props) => {
     const formData = new FormData()
 
     formData.append("content", content)
-    formData.append("post_id", key)
+    // formData.append("post_id", key)
     formData.append("userId", String(""))
 
     return formData
@@ -65,7 +67,7 @@ const PostComment: React.FC<CommentProps> = (props) => {
   useEffect(() => {
     async function handleGetComments() {
       try {
-        const res = await getComments()
+        const res = await getComments(id)
         console.log(res)
 
         if (res?.status === 200) {
@@ -89,12 +91,12 @@ const PostComment: React.FC<CommentProps> = (props) => {
     const data = createFormData()
 
     try {
-      const res = await createComment(data)
+      const res = await createComment(data, id)
       if (res.status === 200) {
 
         setComments([...comments, res.data.comment])
-        setContent("")
-        setKey("")
+        // setContent("")
+        // setKey("")
         console.log(res)
       }
     } catch (err) {

@@ -42,13 +42,13 @@ export default function Root() {
           <div className={classes.heroContent}>
             <Container maxWidth="xl">
               <Typography className={classes.content} component="h1" variant="h3" align="center" gutterBottom>
-                「困り感」のある子どもを支えるママ、パパのためのサービスです
+                「困り感」のある子どもと、子ども支えるみんなのためのサービスです
               </Typography>
               <Typography className={classes.content} variant="h5" align="center" paragraph>
-                不登校や発達障害など「困り感」のある子どもと寄り添うママ、パパ
+                不登校や発達障害など「困り感」のある子どもには適切な支援が必要です
               </Typography>
               <Typography className={classes.content} variant="h5" align="center" paragraph>
-                みんなの頑張りを共有しよう
+                みんなで子どもたちを支えましょう
               </Typography>
               <div className={classes.heroButtons}>
                 <Grid container spacing={5} justifyContent="center">

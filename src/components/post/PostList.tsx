@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { motion } from "framer-motion";
+import { RouteComponentProps } from 'react-router-dom'
 
 import { Container, Grid } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
@@ -17,7 +18,9 @@ const useStyles = makeStyles(() => ({
   }
 }))
 
-const PostList: React.FC = () => {
+type ChatRoomProps = {} & RouteComponentProps<{ id: string }>
+
+const PostList: React.FC<ChatRoomProps> = props => {
   const classes = useStyles()
   const [posts, setPosts] = useState<Post[]>([])
 
@@ -45,6 +48,9 @@ const PostList: React.FC = () => {
             {posts?.map((post: Post) => {
               return (
                 <PostItem
+                  match={props.match}
+                  history={props.history}
+                  location={props.location}
                   key={post.id}
                   post={post}
                   handleGetPosts={handleGetPosts}

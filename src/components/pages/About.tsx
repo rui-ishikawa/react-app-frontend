@@ -1,5 +1,5 @@
 import { ComponentProps } from 'react';
-import { motion } from "framer-motion";
+
 import 'App.css';
 import 'animate.css/animate.css'
 import data from "data.json"
@@ -29,35 +29,32 @@ export const About = () => {
   const classes = useStyles()
   // const history = useHistory()
   return (
-    <motion.div
-      animate={{ x: 0 }}
-      initial={{ x: 800 }}
-      exit={{ x: -800 }}
-      transition={{ duration: 0.4 }}>
-      <div className="App">
-        <MainImage />
-        <div className="card">
-          {data.map((item: ComponentProps<typeof Card>, index: number) => {
-            return (
-              <Card title={item.title} description={item.description} imagePath={item.imagePath} key={index} />
-            )
-          })}
-        </div>
-        <div className="module--spacing--small"></div>
-        <div>
-          <p>ユーザー登録をしてサービスを使う</p>
-          <Box textAlign="center" className={classes.box}>
-            <Typography variant="body2">
-              まだアカウントをお持ちでない方は
-              <Link to="/signup" className={classes.link}>
-                こちら
-              </Link>
-              から作成してください。
-            </Typography>
-          </Box>
-        </div>
+
+    <div className="App">
+      <MainImage />
+      <div className="card">
+        {data.map((item: ComponentProps<typeof Card>, index: number) => {
+          return (
+            <Card title={item.title} description={item.description} imagePath={item.imagePath} key={index} />
+          )
+        })}
       </div>
-    </motion.div>
+      <div className="module--spacing--small"></div>
+      <div>
+        <p>ユーザー登録をしてサービスを使う</p>
+        <Box textAlign="center" className={classes.box}>
+          <Typography variant="body2">
+            まだアカウントをお持ちでない方は
+            <Link to="/signup" className={classes.link}>
+              こちら
+            </Link>
+            から作成してください。
+          </Typography>
+        </Box>
+      </div>
+    </div>
+
+
   );
 }
 

@@ -88,7 +88,7 @@ const App: React.FC = () => {
                       <Route exact path="/chat_rooms" component={ChatRooms} />
                       <Route path="/chatroom/:id" component={ChatRoom} />
                       <Route exact path="/posts" component={PostList} />
-                      <Route exact path="/comments" component={PostComment} />
+                      <Route exact path="/posts/:id/comments" component={PostComment} />
                       <Route component={NotFound} />
                     </Switch>
                   </Private>
