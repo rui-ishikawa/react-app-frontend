@@ -50,6 +50,7 @@ const PostForm = ({ handleGetPosts }: PostFormProps) => {
   const classes = useStyles()
 
   const [content, setContent] = useState<string>("")
+  const [post_id, setPost_id] = useState<string>("")
   const [image, setImage] = useState<File>()
   const [preview, setPreview] = useState<string>("")
 
@@ -69,6 +70,7 @@ const PostForm = ({ handleGetPosts }: PostFormProps) => {
     const formData = new FormData()
 
     formData.append("content", content)
+    formData.append('post_id', post_id)
     if (image) formData.append("image", image)
 
     return formData
@@ -83,6 +85,7 @@ const PostForm = ({ handleGetPosts }: PostFormProps) => {
       .then(() => {
         setContent("")
         setPreview("")
+        setPost_id("")
         setImage(undefined)
         handleGetPosts()
       })

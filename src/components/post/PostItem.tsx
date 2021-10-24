@@ -105,6 +105,7 @@ const PostItem = ({ post, handleGetPosts, history, location, match }: ChatRoomPr
           history={history}
           match={match}
           location={location}
+          post={post}
         // key={post.id}
         />
         <div className={classes.delete}>

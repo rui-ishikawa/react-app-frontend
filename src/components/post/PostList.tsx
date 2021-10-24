@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react"
-import { motion } from "framer-motion";
+import { motion } from "framer-motion"
 import { RouteComponentProps } from 'react-router-dom'
 
 import { Container, Grid } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 
 import PostItem from "./PostItem"
+import PostForm from "./PostForm"
 import OutlinedCard from "./PostCard"
-import PostModal from "./PostModal";
+import PostModal from "./PostModal"
 
 import { getPosts } from "../../lib/api/posts"
 import { Post } from "../../interfaces/index"
@@ -44,7 +45,9 @@ const PostList: React.FC<ChatRoomProps> = props => {
         <Grid container direction="row" justifyContent="center">
           <Grid item>
             <OutlinedCard />
-            <PostModal />
+            <PostForm
+              handleGetPosts={handleGetPosts}
+            />
             {posts?.map((post: Post) => {
               return (
                 <PostItem

@@ -43,11 +43,14 @@ const borderStyles = {
   border: 1,
 }
 
-type CommentProps = { content?: string } & RouteComponentProps<{ id: string }>
+type CommentProps = {
+  content?: string
+  post: any
+} & RouteComponentProps<{ id: string }>
 
-const PostComment: React.FC<CommentProps> = (props) => {
+const PostComment: React.FC<CommentProps> = (props, post) => {
   const classes = useStyles()
-  const id = parseInt(props.match.params.id) // URLからidを取得
+  const id = post.id // idを取得
 
   const [content, setContent] = useState<string>("")
   // const [key, setKey] = useState<string>("")
@@ -83,7 +86,7 @@ const PostComment: React.FC<CommentProps> = (props) => {
       setLoading(false)
     }
     handleGetComments()
-  }, []) //commentsを入れるとコメントしたユーザー名が表示されるが、無限ループする
+  }, [])
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
