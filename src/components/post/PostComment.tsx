@@ -6,10 +6,13 @@ import TextField from "@material-ui/core/TextField"
 import Button from "@material-ui/core/Button"
 import SendIcon from "@material-ui/icons/Send"
 import { Grid, Typography } from "@material-ui/core"
+import IconButton from "@material-ui/core/IconButton"
+import DeleteIcon from "@material-ui/icons/Delete"
 
 import { createComment, getComments } from "../../lib/api/comments"
 import { CommentFormData } from "interfaces/index"
 import { CommentData } from "interfaces/index"
+import { deleteComment } from "../../lib/api/comments"
 
 const useStyles = makeStyles((theme: Theme) => ({
   form: {
@@ -46,14 +49,16 @@ const borderStyles = {
 type CommentProps = {
   content?: string
   post: any
+  id: number
 } & RouteComponentProps<{ id: string }>
 
 const PostComment: React.FC<CommentProps> = (props, post) => {
   const classes = useStyles()
-  const id = post.id // idを取得
+  const id = parseInt(post.id)
+  console.log(id)
 
   const [content, setContent] = useState<string>("")
-  // const [key, setKey] = useState<string>("")
+  const [key, setKey] = useState<string>("")
   const [comments, setComments] = useState<CommentData[]>([])
   const [loading, setLoading] = useState<boolean>(true)
 
@@ -61,7 +66,7 @@ const PostComment: React.FC<CommentProps> = (props, post) => {
     const formData = new FormData()
 
     formData.append("content", content)
-    // formData.append("post_id", key)
+    formData.append("post_id", post.id)
     formData.append("userId", String(""))
 
     return formData
@@ -99,7 +104,7 @@ const PostComment: React.FC<CommentProps> = (props, post) => {
 
         setComments([...comments, res.data.comment])
         // setContent("")
-        // setKey("")
+        setKey("")
         console.log(res)
       }
     } catch (err) {
@@ -117,6 +122,13 @@ const PostComment: React.FC<CommentProps> = (props, post) => {
     const minute = date.getMinutes()
 
     return year + "年" + month + "月" + day + "日" + hour + "時" + minute + "分"
+  }
+
+  const handleDeleteComment = async (id: string) => {
+    await deleteComment(id)
+    // .then(() => {
+    //   handleGetComments()
+    // })
   }
 
   return (
@@ -140,6 +152,13 @@ const PostComment: React.FC<CommentProps> = (props, post) => {
                 >
                   {iso8601ToDateTime(comment.createdAt?.toString() || "100000000")}
                 </Typography>
+                <div>
+                  <IconButton
+                    onClick={() => handleDeleteComment(comment.id)}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </div>
               </Grid>
             </Grid>
           )

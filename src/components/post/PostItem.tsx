@@ -48,11 +48,13 @@ const useStyles = makeStyles((theme: Theme) => ({
 type ChatRoomProps = {
   post: Post
   handleGetPosts: Function
+  props: any
 } & RouteComponentProps<{ id: string }>
 
-const PostItem = ({ post, handleGetPosts, history, location, match }: ChatRoomProps) => {
+const PostItem = ({ post, handleGetPosts, history, location, match, props }: ChatRoomProps) => {
   const classes = useStyles()
   const [like, setLike] = useState<boolean>(false)
+  const id = parseInt(post.id) //postのIdを入れたい
 
   const handleDeletePost = async (id: string) => {
     await deletePost(id)
@@ -106,6 +108,7 @@ const PostItem = ({ post, handleGetPosts, history, location, match }: ChatRoomPr
           match={match}
           location={location}
           post={post}
+          id={id}
         // key={post.id}
         />
         <div className={classes.delete}>

@@ -24,6 +24,7 @@ type ChatRoomProps = {} & RouteComponentProps<{ id: string }>
 const PostList: React.FC<ChatRoomProps> = props => {
   const classes = useStyles()
   const [posts, setPosts] = useState<Post[]>([])
+  const id = parseInt(props.match.params.id)
 
   const handleGetPosts = async () => {
     const { data } = await getPosts()
@@ -47,6 +48,7 @@ const PostList: React.FC<ChatRoomProps> = props => {
             <OutlinedCard />
             <PostForm
               handleGetPosts={handleGetPosts}
+            // post={posts}
             />
             {posts?.map((post: Post) => {
               return (
@@ -57,6 +59,7 @@ const PostList: React.FC<ChatRoomProps> = props => {
                   key={post.id}
                   post={post}
                   handleGetPosts={handleGetPosts}
+                  props={props}
                 />
               )
             }

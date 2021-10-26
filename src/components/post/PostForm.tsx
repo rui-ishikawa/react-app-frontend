@@ -10,6 +10,7 @@ import PhotoCameraIcon from "@material-ui/icons/PhotoCamera"
 import CancelIcon from "@material-ui/icons/Cancel"
 
 import { createPost } from "../../lib/api/posts"
+import { getPosts } from "../../lib/api/posts";
 
 const useStyles = makeStyles((theme: Theme) => ({
   form: {
@@ -44,15 +45,23 @@ const borderStyles = {
 
 interface PostFormProps {
   handleGetPosts: Function
+  // post: any
 }
 
 const PostForm = ({ handleGetPosts }: PostFormProps) => {
   const classes = useStyles()
 
   const [content, setContent] = useState<string>("")
-  const [post_id, setPost_id] = useState<string>("")
+  const [post_id, setPostId] = useState<string>("")
   const [image, setImage] = useState<File>()
   const [preview, setPreview] = useState<string>("")
+
+  // const post_id = post.id
+  // const handleGetPostId = async () => {
+  //   const { data } = await getPosts()
+
+  //   setPostId(data)
+  // }
 
   const uploadImage = useCallback((e) => {
     const file = e.target.files[0]
@@ -85,7 +94,7 @@ const PostForm = ({ handleGetPosts }: PostFormProps) => {
       .then(() => {
         setContent("")
         setPreview("")
-        setPost_id("")
+        setPostId("")  //post.id
         setImage(undefined)
         handleGetPosts()
       })
