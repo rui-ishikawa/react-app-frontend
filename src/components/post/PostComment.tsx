@@ -43,7 +43,7 @@ const borderStyles = {
   border: 1,
 }
 
-type CommentProps = { content?: string } & RouteComponentProps<{ id: string }>
+type CommentProps = { content?: string, postId: string } & RouteComponentProps<{ id: string }>
 
 const PostComment: React.FC<CommentProps> = (props) => {
   const classes = useStyles()

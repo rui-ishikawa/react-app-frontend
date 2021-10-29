@@ -105,7 +105,8 @@ const PostItem = ({ post, handleGetPosts, history, location, match }: ChatRoomPr
           history={history}
           match={match}
           location={location}
-        // key={post.id}
+          postId={post.id}
+          key={post.id}
         />
         <div className={classes.delete}>
           <IconButton
